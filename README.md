@@ -1,20 +1,55 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Grey Chair HVAC
 
-# Run and deploy your AI Studio app
+A Vite + React marketing site for HVAC/plumbing/electrical services, with an AI-powered troubleshooting helper backed by Google Gemini.
 
-This contains everything you need to run your app locally.
+## Tech stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1H18OBO_PAJ4J4-zLUfbeOi05Cv6EQQ09
+- React 19 + TypeScript
+- Vite 6
+- Google Gemini via `@google/genai`
 
-## Run Locally
+## Run locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js (recommended: 18+)
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+
+```bash
+npm install
+```
+
+2. Create a `.env.local` file (this repo ignores `*.local`) and set your Gemini key:
+
+```bash
+GEMINI_API_KEY=your_key_here
+```
+
+3. Start the dev server:
+
+```bash
+npm run dev
+```
+
+The app will be available on `http://localhost:3000` (configured in `vite.config.ts`).
+
+## Environment variables
+
+- `GEMINI_API_KEY`: Used by the client-side troubleshooter (`services/geminiService.ts`).
+
+**Note:** This project currently injects the key into the browser bundle via Vite `define`. For production use, prefer moving Gemini calls to a server/API route so the key is not exposed to end users.
+
+## Scripts
+
+- `npm run dev`: Start Vite dev server
+- `npm run build`: Production build to `dist/`
+- `npm run preview`: Serve the production build locally
+
+## Deploy
+
+Build with:
+
+```bash
+npm run build
+```
+
+Deploy the `dist/` directory to your static host (Netlify/Vercel/Cloudflare Pages/S3, etc.). If your host requires it, configure SPA routing to rewrite all routes to `index.html`.
